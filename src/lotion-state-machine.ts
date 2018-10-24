@@ -225,6 +225,9 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
 
         query(path) {
           try {
+            if (path === "") {
+              return appState
+            }
             return jp.query(appState, path)
           } catch (err) {
             return []
