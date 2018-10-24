@@ -2,6 +2,7 @@ import { createHash } from 'crypto'
 import djson = require('deterministic-json')
 import muta = require('muta')
 import Router = require('lotion-router')
+import jp = require('jsonpath')
 
 interface Action {
   type: string
@@ -223,7 +224,11 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
         },
 
         query(path) {
-          return appState
+          try {
+            return jp.query(appState, path)
+          } catch (err) {
+            return []
+          }
         },
 
         context() {
