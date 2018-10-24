@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/lotion-state-machine.js",
   "scripts": {
-    "test": "nyc -r text -r html tape test/*.js"
+    "test": "nyc -r text -r html tape test/*.js",
+    "postinstall": "tsc"
   },
   "keywords": [],
   "author": "",
