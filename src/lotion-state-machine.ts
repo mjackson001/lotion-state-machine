@@ -2,7 +2,7 @@ import { createHash } from 'crypto'
 import djson = require('deterministic-json')
 import muta = require('muta')
 import Router = require('lotion-router')
-import jp = require('jsonpath')
+import jp = require('jsonpath-plus')
 
 interface Action {
   type: string
@@ -244,7 +244,7 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
             if (path === "") {
               return appState
             }
-            return jp.query(appState, path)
+            return jp.query({ json: JSON.parse(appState), path: path })
           } catch (err) {
             return []
           }
