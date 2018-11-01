@@ -128,6 +128,16 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
         context = Object.assign({}, context, { validators: txValidators })
         try {
           const events = transactionHandlers.reduce((acc, m) => {
+            const e = m(txState, tx, context)
+            return Object.assign(acc, {
+              data: Buffer.from(JSON.stringify(e.data)),
+              tags: e.tags.map(tmp => {
+                return {
+                  key: Buffer.from(tmp.key),
+                  value: Buffer.from(tmp.value)
+                }
+              })
+            })
             return Object.assign(acc, m(txState, tx, context))
           }, {})
           /**
