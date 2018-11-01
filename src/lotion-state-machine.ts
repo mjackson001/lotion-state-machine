@@ -129,8 +129,10 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
         try {
           const events = transactionHandlers.reduce((acc, m) => {
             const e = m(txState, tx, context)
+            if (e.data !== undefined) {
+              acc.data = Buffer.from(JSON.stringify(e.data))
+            }
             return Object.assign(acc, {
-              data: Buffer.from(JSON.stringify(e.data)),
               tags: e.tags.map(tmp => {
                 return {
                   key: Buffer.from(tmp.key),
@@ -138,7 +140,6 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
                 }
               })
             })
-            return acc
           }, {})
           /**
            * tx was applied without error.
