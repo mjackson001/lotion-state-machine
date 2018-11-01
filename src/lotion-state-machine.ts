@@ -138,7 +138,7 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
                 }
               })
             })
-            return events
+            return acc
           }, {})
           /**
            * tx was applied without error.
