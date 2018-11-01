@@ -132,14 +132,17 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
             if (e.data !== undefined) {
               acc.data = Buffer.from(JSON.stringify(e.data))
             }
-            return Object.assign(acc, {
-              tags: e.tags.map(tmp => {
-                return {
-                  key: Buffer.from(tmp.key),
-                  value: Buffer.from(tmp.value)
-                }
+            if (e.data !== undefined) {
+              Object.assign(acc, {
+                tags: e.tags.map(tmp => {
+                  return {
+                    key: Buffer.from(tmp.key),
+                    value: Buffer.from(tmp.value)
+                  }
+                })
               })
-            })
+            }
+            return acc
           }, {})
           /**
            * tx was applied without error.
