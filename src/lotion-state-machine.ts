@@ -2,7 +2,7 @@ import { createHash } from 'crypto'
 import djson = require('deterministic-json')
 import muta = require('muta')
 import Router = require('lotion-router')
-import { JSONPath } = require('jsonpath-plus')
+const { JSONPath } = require('jsonpath-plus')
 
 interface Action {
   type: string
