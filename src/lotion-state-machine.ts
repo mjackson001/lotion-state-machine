@@ -244,7 +244,7 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
             if (path === "") {
               return appState
             }
-            return jp.query({ json: JSON.parse(appState), path: path })
+            return jp.query({ json: JSON.stringify(appState), path: path })
           } catch (err) {
             return []
           }
