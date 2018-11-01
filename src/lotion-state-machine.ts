@@ -127,7 +127,9 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
         let txValidators = muta(context.validators)
         context = Object.assign({}, context, { validators: txValidators })
         try {
-          transactionHandlers.forEach(m => m(txState, tx, context))
+          const events = transactionHandlers.reduce((acc, m) => {
+            return Object.assign(acc, m(txState, tx, context))
+          }, {})
           /**
            * tx was applied without error.
            * now make sure something was mutated.
@@ -177,7 +179,7 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
           checkTransition(action.type)
 
           if (action.type === 'transaction') {
-            applyTx(nextState, action.data, nextContext)
+            return applyTx(nextState, action.data, nextContext)
           } else if (action.type === 'block') {
             /**
              * end block.
