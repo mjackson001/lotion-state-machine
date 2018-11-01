@@ -138,7 +138,7 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
                 }
               })
             })
-            return Object.assign(acc, m(txState, tx, context))
+            return events
           }, {})
           /**
            * tx was applied without error.
