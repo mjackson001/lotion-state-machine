@@ -141,7 +141,7 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
              */
             muta.commit(txState)
             muta.commit(txValidators)
-            return {}
+            return events
           } else {
             throw new Error(
               'transaction must mutate state or validators to be valid'
