@@ -200,25 +200,7 @@ function LotionStateMachine(opts: BaseApplicationConfig): Application {
              * apply block handlers.
              * compute validator set updates.
              */
-            //blockHandlers.forEach(m => m(nextState, nextContext))
-            const events = blockHandlers.reduce((acc, m) => {
-              const e = m(nextState, nextContext)
-              if (e.data !== undefined) {
-                acc.data = Buffer.from(JSON.stringify(e.data))
-              }
-              if (e.data !== undefined) {
-                Object.assign(acc, {
-                  tags: e.tags.map(tmp => {
-                    return {
-                      key: Buffer.from(tmp.key),
-                      value: Buffer.from(tmp.value)
-                    }
-                  })
-                })
-              }
-              return acc
-            }, {})
-            return events
+            blockHandlers.forEach(m => m(nextState, nextContext))
           } else if (action.type === 'begin-block') {
             /**
              * begin block.
